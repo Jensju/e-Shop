@@ -92,18 +92,26 @@ Varorna är slutsålda.
 Det finns inga varor att betala
 -------------------------------\n`);
       } else {
-        console.log(`\n\n----- K V I T T O -----\n`);
+        console.log(`\n\n---------- K V I T T O ----------\n`);
         for (let i = 0; i < varuval.length; i++) {
           console.log(`${i + 1})  ${varuval[i].produkt}    ........ Pris: ${varuval[i].pris} kr/st`);
         }
+        const d = new Date().toLocaleDateString();
+        const t = new Date().toLocaleTimeString();
+
+        const kvittoDag = [{ "datum": "Datum: " + d + ", Kl." + t }];
+        varuval.push(kvittoDag[0]);
       }
+      const nyttVal = varuval;
+      // const nyttVal = varuval.push(kvittens);
+
+      // console.log(nyttVal);
       console.log(`\nTack för ditt köp. Välkommen åter!\n\n`);
 
-      fs.writeFile('./kvitto.json', JSON.stringify(varuval, null, 2), (err) => {
-        if (err) throw err; console.log('vara written to file');
+      fs.writeFileSync('./kvitto.json', JSON.stringify(nyttVal, null, 2), (err) => {
+        if (err) throw err; console.log('vara written to file'); //.push(varuval)
       });
 
-      running = false;
       break;
     case "6":
       if (kvittens.length === 0) {
@@ -120,6 +128,7 @@ Det finns inga kvitton att visa
       }
       console.log(`\nInga fler köp att visa.\n\n`);
       break;
+
     case "Q":
       console.log(`\nTack för besöket. Välkommen åter!\n`);
       running = false;
@@ -128,3 +137,15 @@ Det finns inga kvitton att visa
       console.log("\nGör ett korrekt val i menyn: \n");
   }
 }
+
+
+
+// const d = new Date().toLocaleDateString()
+
+// const t = new Date().toLocaleTimeString()
+
+
+
+// console.log(d)
+
+// console.log(t)
