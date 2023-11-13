@@ -1,0 +1,18 @@
+[
+  {
+    "produkt": "Bacon",
+    "pris": 14
+  },
+  {
+    "produkt": "Pasta",
+    "pris": 18
+  },
+  {
+    "produkt": "Grädde",
+    "pris": 22
+  },
+  {
+    "produkt": "Gorgonzola",
+    "pris": 45
+  }
+]
