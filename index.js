@@ -48,7 +48,7 @@ Varorna är slutsålda.
           console.log(`${i + 1})  ${varuval[i].produkt}    ........ Pris: ${varuval[i].pris} kr/st`);
         }
       }
-
+    
       break;
     case "3":
       console.log(`\nLägg till en vara i varukorg:
@@ -85,6 +85,7 @@ Varorna är slutsålda.
         }
       }
       break;
+    // ------------------------------------------------------------------------
     case "5":
       if (varuval.length === 0) {
         console.log(`\n
@@ -99,20 +100,30 @@ Det finns inga varor att betala
         const d = new Date().toLocaleDateString();
         const t = new Date().toLocaleTimeString();
 
-        const kvittoDag = [{ "datum": "Datum: " + d + ", Kl." + t }];
+        console.log(`\nKöpet genomfört den: ${d} kl: ${t}\n`);
+
+        const kvittoDag = [{ "date": d, "time": t }]; //Datum och tid in i en array
         varuval.push(kvittoDag[0]);
+        kvittens.unshift(varuval);
       }
-      const nyttVal = varuval;
+      // ------------------------------------------------------------------------
+      
+      // const nyttVal = varuval;
       // const nyttVal = varuval.push(kvittens);
 
       // console.log(nyttVal);
       console.log(`\nTack för ditt köp. Välkommen åter!\n\n`);
 
-      fs.writeFileSync('./kvitto.json', JSON.stringify(nyttVal, null, 2), (err) => {
-        if (err) throw err; console.log('vara written to file'); //.push(varuval)
+      fs.writeFileSync('./kvitto.json', JSON.stringify(kvittens, null, 2), (err) => {
+        if (err) throw err; console.log('vara written to file');
       });
+      // fs.writeFileSync('./kvitto.json', JSON.stringify(nyttVal, null, 2), (err) => {
+      //   if (err) throw err; console.log('vara written to file');
+      // });
 
       break;
+    
+    // ------------------------------------------------------------------------
     case "6":
       if (kvittens.length === 0) {
         console.log(`\n\n
@@ -122,11 +133,14 @@ Det finns inga kvitton att visa
       } else {
         console.log(`\nKÖPHISTORIK
 ---------------------`);
-        for (let i = 0; i < kvittens.length; i++) {
-          console.log(`${i + 1})  ${kvittens[i].produkt}    ........ Pris: ${kvittens[i].pris} kr/st`);
-        }
+        console.log(kvittens);
+        
+        // ---------- Får inte tag på nycklarna pga för många nivåer --------
+        // for (let i = 0; i < kvittens.length; i++) {
+        //   console.log(`${i + 1})  ${kvittens[i].produkt}    ........ Pris: ${kvittens[i].pris} kr/st`);
+        // }
       }
-      console.log(`\nInga fler köp att visa.\n\n`);
+      console.log(`\nInga fler kvittenser att visa.\n\n`);
       break;
 
     case "Q":
@@ -137,15 +151,3 @@ Det finns inga kvitton att visa
       console.log("\nGör ett korrekt val i menyn: \n");
   }
 }
-
-
-
-// const d = new Date().toLocaleDateString()
-
-// const t = new Date().toLocaleTimeString()
-
-
-
-// console.log(d)
-
-// console.log(t)
